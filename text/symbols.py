@@ -9,13 +9,14 @@ from text import cmudict
 _punctuation = '!\'",.:;? '
 _math = '#%&*+-/[]()'
 _special = '_@©°½—₩€$'
-_accented = 'áçéêëñöøćž'
+_accented = '\u0300\u0301\u0303'
 _numbers = '0123456789'
-_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+_letters = 'AĄBCČDEĘĖFGHIĮJKLMNOPQRSŠTUŲŪVWXYZŽaąbcčdeęėfghiįjklmnopqrsštuųūvwxyzž'
 
 # Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as
 # uppercase letters):
-_arpabet = ['@' + s for s in cmudict.valid_symbols]
+# _arpabet = ['@' + s for s in cmudict.valid_symbols]
+_arpabet = []
 
 # Export all symbols:
 symbols = list(_punctuation + _math + _special + _accented + _numbers + _letters) + _arpabet
