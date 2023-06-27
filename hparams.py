@@ -1,11 +1,34 @@
 import tensorflow as tf
 from text.symbols import symbols
 
+class HParams:
+    def __init__(self, **kwargs):
+        self.params = kwargs
+
+    def __getattr__(self, name):
+        return self.params[name]
+
+    def __setattr__(self, name, value):
+        if name == "params":
+            super().__setattr__(name, value)
+        else:
+            self.params[name] = value
+
+
+    def values(self, name):
+        return [self.params[name]]
+
+    def parse(self, values):
+        for name, value in values.items():
+            self.params[name] = value
+
+
+
 
 def create_hparams(hparams_string=None, verbose=False):
     """Create model hyperparameters. Parse nondefault from given string."""
 
-    hparams = tf.contrib.training.HParams(
+    hparams = HParams(
         ################################
         # Experiment Parameters        #
         ################################
@@ -24,8 +47,8 @@ def create_hparams(hparams_string=None, verbose=False):
         ################################
         # Data Parameters             #
         ################################
-        training_files='filelists/ljs_audiopaths_text_sid_train_filelist.txt',
-        validation_files='filelists/ljs_audiopaths_text_sid_val_filelist.txt',
+        training_files='filelists/liepa_train_filelist.txt',
+        validation_files='filelists/liepa_val_filelist.txt',
         text_cleaners=['basic_cleaners'],
         p_arpabet=1.0,
         cmudict_path="data/cmu_dictionary",
