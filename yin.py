@@ -41,7 +41,12 @@ def cumulativeMeanNormalizedDifferenceFunction(df, N):
     :rtype: list
     """
 
-    cmndf = df[1:] * range(1, N) / np.cumsum(df[1:]).astype(float) #scipy method
+    # cmndf = df[1:] * range(1, N) / np.cumsum(df[1:]).astype(float) #scipy method
+    # return np.insert(cmndf, 0, 1)
+
+    valid_indices = np.nonzero(np.cumsum(df[1:]) != 0)[0]
+    cmndf = np.zeros_like(df)
+    cmndf[valid_indices] = df[1:][valid_indices] * range(1, N) / np.cumsum(df[1:])[valid_indices].astype(float)
     return np.insert(cmndf, 0, 1)
 
 
