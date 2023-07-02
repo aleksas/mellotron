@@ -9,9 +9,9 @@ RUN git clone https://github.com/nvidia/apex.git  /root/workspaces/apex \
 	&& pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" /root/workspaces/apex
 
 RUN mkdir -p /root/workspaces/
-COPY . /root/workspaces/tacotron2
-RUN pip install -r /root/workspaces/tacotron2/requirements.txt
+COPY . /root/workspaces/mellotron
+RUN pip install -r /root/workspaces/mellotron/requirements.txt
 
-WORKDIR /root/workspaces/tacotron2
+WORKDIR /root/workspaces/mellotron
 
 FROM dev AS build
